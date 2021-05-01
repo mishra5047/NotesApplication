@@ -1,8 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blue_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/background_image_notes"
+        android:layout_height="280dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:alpha="0.9"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@drawable/add_notes_image"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Notes"
+            android:textSize="32sp"
+            android:textStyle="italic"
+            android:layout_marginTop="-10dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/bottom_sheet">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="80dp"
+            android:hint="Note's Title"
+            app:met_floatingLabelText="Note Title"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/blue_bg"
+            app:met_primaryColor="@color/blue_bg"
+            app:met_floatingLabelTextSize="@dimen/text_medium"
+            android:textColorHint="#424242"
+            android:textColorHighlight="@color/blue_bg"
+            android:id="@+id/notesTitle"
+            />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:maxHeight="200dp"
+        android:hint="Enter Notes Data Here"
+        app:met_floatingLabelText="Note Data"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelTextColor="@color/blue_bg"
+        app:met_primaryColor="@color/blue_bg"
+        app:met_floatingLabelTextSize="@dimen/text_medium"
+        android:textColorHint="#424242"
+        android:textColorHighlight="@color/blue_bg"
+        android:id="@+id/notesData"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:text="Where Do you want to save your Note?"
+            android:textSize="@dimen/text_medium"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioSave"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local Storage"
+                android:textSize="@dimen/text_medium"
+                android:textColor="@color/black"
+                />
+            <RadioButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Web Storage"
+                android:textSize="@dimen/text_medium"
+                android:textColor="@color/black"/>
+        </RadioGroup>
 
 
-
-</LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
