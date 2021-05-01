@@ -101,6 +101,19 @@
                 android:textColor="@color/black"/>
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/addNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Add Note"
+            android:textColor="@color/black"
+            android:layout_marginTop="30dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:textSize="@dimen/text_medium"
+            android:background="@drawable/background_tabs"
+            />
 
     </LinearLayout>
     </LinearLayout>
