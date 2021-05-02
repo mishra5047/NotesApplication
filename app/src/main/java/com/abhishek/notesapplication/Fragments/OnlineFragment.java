@@ -47,7 +47,7 @@ public class OnlineFragment extends BaseFragment {
     }
 
     public void setData(View view){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("authId");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(authId);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,7 +61,7 @@ public class OnlineFragment extends BaseFragment {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     arrayList.add(dataSnapshot.getValue(ItemNotes.class));
                 }
-                NotesFirebaseAdapter adapter = new NotesFirebaseAdapter(getContext(), arrayList);
+                NotesFirebaseAdapter adapter = new NotesFirebaseAdapter(getContext(), arrayList, authId);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }

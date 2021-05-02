@@ -61,7 +61,7 @@ public class OfflineFragment extends BaseFragment {
                 data.add(cursor.getString(1));
             }
 
-            NotesSQLITEAdapter adapter = new NotesSQLITEAdapter(getContext(), title, data);
+            NotesSQLITEAdapter adapter = new NotesSQLITEAdapter(getContext(), title, data, authId);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }

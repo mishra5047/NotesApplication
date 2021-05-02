@@ -1,27 +1,34 @@
 
 package com.abhishek.notesapplication;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.abhishek.notesapplication.Fragments.AddNotesFragment;
+import com.abhishek.notesapplication.Fragments.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Notes_Fragment extends androidx.fragment.app.Fragment {
-
+    String authId;
     TabLayout tabLayout;
     ViewPager viewPager;
 
-    FloatingActionButton floatingActionButton;
+
+    FloatingActionButton floatingActionButton, logOut;
     /*
         2 tabs application
         1. Local Notes.
@@ -30,12 +37,45 @@ public class Notes_Fragment extends androidx.fragment.app.Fragment {
         4. Add note screen
          */
 
+    public Notes_Fragment(String authId) {
+        this.authId = authId;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
-
+        //Toast.makeText(getContext(), "id is = " + authId, Toast.LENGTH_SHORT).show();
         floatingActionButton = view.findViewById(R.id.addNotes);
+        logOut = view.findViewById(R.id.logOut);
+
+        logOut.setOnClickListener( v -> {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+
+        alertDialog.setTitle("Are you sure, you want to Log Out ?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //delete depending on online // offline note
+                FirebaseAuth.getInstance().signOut();
+                SharedPreferences pref = getContext().getSharedPreferences("NotesData", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove("authId");
+                editor.apply();
+                editor.commit();
+                System.exit(0);
+            }
+        });
+
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.create();
+        alertDialog.show();
+        });
 
         tabLayout= view.findViewById(R.id.tabLayout);
         viewPager= view.findViewById(R.id.fragmentNotes);
@@ -75,11 +115,12 @@ public class Notes_Fragment extends androidx.fragment.app.Fragment {
                 return true;
             }
         });
-        viewPager.setAdapter(new FragmentAdapter(getFragmentManager(), getContext(),2));
+
+        viewPager.setAdapter(new FragmentAdapter(getFragmentManager(), getContext(),2, authId));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddNotesFragment());
+                loadFragment(new AddNotesFragment(authId));
             }
         });
 
@@ -91,7 +132,7 @@ public class Notes_Fragment extends androidx.fragment.app.Fragment {
         if (fragment != null) {
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .add(R.id.fragment_container, fragment)
                     .commit();
             return true;
         }

@@ -15,12 +15,13 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     private Context context;
     int totalTabs;
+    String authId;
 
-
-    public FragmentAdapter(@NonNull androidx.fragment.app.FragmentManager fm,Context context, int totalTabs) {
+    public FragmentAdapter(@NonNull androidx.fragment.app.FragmentManager fm,Context context, int totalTabs, String authId) {
         super(fm);
         this.context = context;
         this.totalTabs = totalTabs;
+        this.authId = authId;
     }
 
     @NonNull
@@ -28,11 +29,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0 :
-                return new OfflineFragment(context, "");
+                return new OfflineFragment(context, authId);
 
             case 1 :
-                Toast.makeText(context, "Second CLicked", Toast.LENGTH_SHORT).show();
-                return new OnlineFragment(context,"");
+                return new OnlineFragment(context,authId);
 
             default:
                 return null;
